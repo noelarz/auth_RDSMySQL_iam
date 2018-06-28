@@ -1,11 +1,11 @@
 ## Authenticate to Your AWS MySQL RDS Instance via IAM
 
 ## Prerequesites
-- Create RDS MySQL Database
-- Create IAM Policy that allows a user to connect via a MySQL User
-- Create IAM User and associate IAM Policy
-- Configure the new user credentials in the awscli credential provider
-- Bash script to generate the auth token and authenticate to RDS via Token instead of password
+- RDS MySQL DB
+- IAM Policy that allows a user to connect via a MySQL User
+- IAM User and associate IAM Policy
+- Configure the new user creds in the aws cli credential provider
+- Bash script to generate the auth token and authenticate to RDS via Token instead of pass
  
 ## Create the RDS Database:
 aws rds create-db-instance \
