@@ -1,0 +1,4 @@
+#!/bin/bash
+db_endpoint="dash.cnocm9tnnjvi.us-east-1.rds.amazonaws.com"
+auth_token="$(aws --profile dbuser rds generate-db-auth-token --hostname $db_endpoint --port 3306 --username mydbaccount)"
+mysql --host=$db_endpoint --port=3306 --enable-cleartext-plugin --user=mydbaccount --password=$auth_token

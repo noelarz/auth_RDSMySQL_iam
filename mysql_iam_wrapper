@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# ----------------------------------------------------------------------------------------#
+# File: mysql_iam_wrapper
+# Wrapper MySQL Client for IAM Based Authentication for MySQL and Amazon Aurora on RDS
+# Read: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html
+# Usage: [app] [aws_profile] [rds_endpoint] [rds_mysql_username]
+# ----------------------------------------------------------------------------------------#
+
+command_exists() {
+  type "$1" &> /dev/null ;
+}
+
+check_required_parameters() {
+  aws_profile="$1"
+  rds_hostname="$2"
+  rds_username="$3"
+  if ! [[ -n "$aws_profile" && -n "$rds_username" && -n "$rds_username" ]]
+    then
+      echo "Error: Missing Parameters"
+      echo "Expected: $0 aws_profile_name rds_endpoint_name rds_db_username"
+      echo "Usage: $0 prod dbname.eu-west-1.amazonaws.com dba"
+      exit 1
+  fi
+}
+
+get_auth_token() {
+  aws_bin=$(which aws | head -1)
+  auth_token="$($aws_bin --profile $aws_profile rds generate-db-auth-token --hostname $rds_hostname --port 3306 --username $rds_username )"
+}
+
+connect_to_rds() {
+  mysql_bin=$(which mysql | head -1)
+  $mysql_bin --host=$rds_hostname --port=3306 --enable-cleartext-plugin --user=$rds_username --password=$auth_token
+}
+
+if [ "$1" == "help" ]
+  then
+    echo "Help"
+    echo "Expected: $0 aws_profile_name rds_endpoint_name rds_db_username"
+    echo "Usage: $0 prod dbname.us-east-1.amazonaws.com dba_user"
+    exit 0
+fi
+
+if command_exists aws && command_exists mysql
+then
+  check_required_parameters $1 $2 $3
+  get_auth_token
+  connect_to_rds
+else
+  echo "Error: Make sure aws-cli and mysql client is installed"
+fi
