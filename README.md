@@ -25,36 +25,53 @@ $ mysql> CREATE USER mydbaccount IDENTIFIED WITH AWSAuthenticationPlugin AS 'RDS
 $ mysql> FLUSH PRIVILEGES;
 
 ## Creating the Databases and Granting Permissions
-$ mysql> create database db1;
-$ mysql> create database db2;
+$ mysql> create database db100;
 
-$ mysql> use db1;
+$ mysql> create database db200;
+
+$ mysql> use db100;
+
 $ mysql> create table foo (name VARCHAR(20), age INT);
+
 $ mysql> insert into foo values('jim', 31);
+
 $ mysql> insert into foo values('anna', 32);
 
-$ mysql> use db2;
+$ mysql> use db200;
+
 $ mysql> create table foo (location VARCHAR(255));
+
 $ mysql> insert into foo values('mexico');
+
 $ mysql> insert into foo values('canada');
+
 $ mysql> insert into foo values('bahams');
 
-$ mysql> grant select on db1.* to 'mydbuser';
-$ mysql> grant select on db2.* to 'mydbuser';
+$ mysql> grant select on db100.* to 'mydbuser';
 
-$ mysql> create database db3;
-$ mysql> use db3;
+$ mysql> grant select on db200.* to 'mydbuser';
+
+$ mysql> create database db300;
+
+$ mysql> use db300;
+
 $ mysql> create table foo (passwords VARCHAR(255));
+
 $ mysql> insert into foo values('yourdadpass');
+
 $ mysql> insert into foo values('yoursistepass');
 
 $ mysql> flush privileges;
 
 ### IAM Permissions to allow our user to authenticate to our RDS.
 $ aws configure --profile dbuser
+
 AWS Access Key ID [None]: xxxxxxxxxxxxx
+
 AWS Secret Access Key [None]: xxxxxxxxxxxxxxxxxx
+
 Default region name [None]: us-east-1
+
 Default output format [None]: json
 
 ## To get the DB ResourceId:
@@ -85,5 +102,5 @@ Bash script that will generate the authentication token to be used as the passwo
 
 ### mysql_iam_wrapper
 Bash script to connect to my DB
+
 $ mysql-iam prod dash.us-east-1.amazonaws.com mydbaccount
-mysql>
