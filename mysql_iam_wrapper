@@ -19,7 +19,7 @@ check_required_parameters() {
     then
       echo "Error: Missing Parameters"
       echo "Expected: $0 aws_profile_name rds_endpoint_name rds_db_username"
-      echo "Usage: $0 prod dbname.eu-west-1.amazonaws.com dba"
+      echo "Usage: $0 nameofAWSprofile dbname.us-east-1.amazonaws.com dba"
       exit 1
   fi
 }
@@ -38,7 +38,7 @@ if [ "$1" == "help" ]
   then
     echo "Help"
     echo "Expected: $0 aws_profile_name rds_endpoint_name rds_db_username"
-    echo "Usage: $0 prod dbname.us-east-1.amazonaws.com dba_user"
+    echo "Usage: $0 nameofAWSprofilee dbname.us-east-1.amazonaws.com dba_user"
     exit 0
 fi
 

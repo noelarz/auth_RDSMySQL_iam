@@ -85,9 +85,10 @@ Policy associated it with the IAM user account
 
 
 ### token_gen_iam
+$ ./token_gen_iam
 Bash script that will generate the authentication token to be used as the password (expires every 15 minutes)
 
 ### mysql_iam_wrapper
 Bash script to connect to my DB
 
-$ mysql-iam prod dash.us-east-1.amazonaws.com mydbaccount
+$ ./mysql_iam_wrapper prod dbname.us-east-1.amazonaws.com mydbaccount
