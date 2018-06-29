@@ -15,11 +15,11 @@ aws rds create-db-instance \
     --allocated-storage 20 \
     --master-username dbadmin \
     --master-user-password dbmaspass \
-    --region us-esst-1 \
+    --region us-east-1 \
     --enable-iam-database-authentication
 
 ## Create the Database Account:
-$ mysql -u dbadmin -h dash.abcdefgh.eu-west-1.rds.amazonaws.com -p
+$ mysql -u dbadmin -h dash.abcdefgh.us-east-1.rds.amazonaws.com -p
 
 $ mysql> CREATE USER mydbaccount IDENTIFIED WITH AWSAuthenticationPlugin AS 'RDS';
 $ mysql> FLUSH PRIVILEGES;
@@ -79,22 +79,9 @@ $ aws rds describe-db-instances --db-instance-identifier dash | jq -r ".DBInstan
 db-123456789ABCDEFGH
 
 
-### IAM Policy and associate it with the new user account:
-{
-   "Version": "2012-10-17",
-   "Statement": [
-      {
-           "Sid": "RDSIAMAUTH",
-         "Effect": "Allow",
-         "Action": [
-             "rds-db:connect"
-         ],
-         "Resource": [
-             "arn:aws:rds-db:us-eust-1:123456789012:dbuser:db-123456789ABCDEFGH/mydbaccount"
-         ]
-      }
-   ]
-}
+### IAM_Policy
+Policy associated it with the IAM user account
+
 
 
 ### token_gen_iam
