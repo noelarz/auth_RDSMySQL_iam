@@ -2,7 +2,7 @@
    "Version": "2012-10-17",
    "Statement": [
       {
-           "Sid": "RDSIAMAUTH",
+           "Sid": "IAM_RDS_Auth",
          "Effect": "Allow",
          "Action": [
              "rds-db:connect"
